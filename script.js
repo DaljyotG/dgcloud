@@ -16,15 +16,6 @@ $(document).ready(function (e) {
 
 });
 
-const counter = document.querySelector(".counter-number");
-async function updateCounter() {
-    let response = await fetch("https://xglb3co5tlhyioj7cmpk5x2zby0kfheu.lambda-url.us-east-1.on.aws/");
-    let data = await response.json();
-    counter.innerHTML = `Views: ${data}`;
-}
-updateCounter();
-
-
 function toggle_onclick($win, $navbar, width) {
     if ($win.width() <= 768) {
         $navbar.css({ left: `-${width}px` });
@@ -65,3 +56,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+const counter = document.querySelector(".counter-number");
+async function updateCounter() {
+    let response = await fetch("https://xglb3co5tlhyioj7cmpk5x2zby0kfheu.lambda-url.us-east-1.on.aws/");
+    let data = await response.json();
+    counter.innerHTML = `Views: ${data}`;
+}
+updateCounter();
