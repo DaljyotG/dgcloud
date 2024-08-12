@@ -63,3 +63,62 @@ async function updateCounter() {
     counter.innerHTML = `Views: ${data}`;
 }
 updateCounter();
+
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Collect form data
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // API Endpoint URL
+    const apiUrl = 'https://your-api-gateway-url/endpoint'; // Replace with your API Gateway URL
+
+    // Create a payload
+    const payload = {
+        name: name,
+        phone: phone,
+        email: email,
+        message: message
+    };
+
+    // Send POST request to the API Gateway
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle success response
+        if (data.success) {
+            displayBanner('Your message was sent successfully!', 'success');
+        } else {
+            displayBanner('There was an issue sending your message. Please try again.', 'error');
+        }
+    })
+    .catch((error) => {
+        // Handle error response
+        displayBanner('Failed to send message. Please try again.', 'error');
+    });
+});
+
+function displayBanner(message, type) {
+    const banner = document.getElementById('responseBanner');
+    banner.textContent = message;
+
+    if (type === 'success') {
+        banner.style.backgroundColor = '#d4edda'; // Light green
+        banner.style.color = '#155724'; // Dark green text
+    } else {
+        banner.style.backgroundColor = '#f8d7da'; // Light red
+        banner.style.color = '#721c24'; // Dark red text
+    }
+
+    banner.style.padding = '10px';
+    banner.style.borderRadius = '5px';
+}

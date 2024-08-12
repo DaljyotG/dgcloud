@@ -222,3 +222,64 @@ body{
 .eye :hover{
     color: var(--color-white);
 }
+
+/* Contact Us Page Styles */
+.contact-form {
+    background-color: var(--color-blue);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    width: 100%;
+    max-width: 400px;
+    margin: 5% auto;
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    font-family: var(--font-staat);
+}
+
+.contact-form label {
+    font-size: 14px;
+    color: var(--color-black);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    font-family: var(--font-os);
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.contact-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-white);
+    border: none;
+    border-radius: 3px;
+    color: var(--color-black);
+    font-size: 16px;
+    cursor: pointer;
+    font-family: var(--font-staat);
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
