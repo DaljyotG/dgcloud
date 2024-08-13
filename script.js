@@ -81,7 +81,7 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         message: message
     };
 
-    // Define the API Gateway endpoint URL 
+    // Define the API Gateway endpoint 
     const apiUrl = 'https://ixpx0870if.execute-api.us-east-1.amazonaws.com/ContactMeProd/status';
 
     // Send data to the Lambda function using the Fetch API
