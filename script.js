@@ -65,7 +65,7 @@ async function updateCounter() {
 updateCounter();
 
 document.getElementById('contactForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); // Prevent the default form submission
 
     // Collect form data
     const name = document.getElementById('name').value;
@@ -73,52 +73,35 @@ document.getElementById('contactForm').addEventListener('submit', function(event
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
 
-    // API Endpoint URL
-    const apiUrl = 'https://your-api-gateway-url/endpoint'; // Replace with your API Gateway URL
-
-    // Create a payload
-    const payload = {
+    // Create a data object to send to the Lambda function
+    const data = {
         name: name,
         phone: phone,
         email: email,
         message: message
     };
 
-    // Send POST request to the API Gateway
+    // Define the API Gateway endpoint URL
+    const apiUrl = 'https://your-api-gateway-url.execute-api.region.amazonaws.com/your-stage-name/your-resource-pathhttps://ixpx0870if.execute-api.us-east-1.amazonaws.com/ContactMeProd/status';
+
+    // Send data to the Lambda function using the Fetch API
     fetch(apiUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(data => {
-        // Handle success response
-        if (data.success) {
-            displayBanner('Your message was sent successfully!', 'success');
-        } else {
-            displayBanner('There was an issue sending your message. Please try again.', 'error');
-        }
+        // Handle the response
+        document.getElementById('responseBanner').innerText = 'Thank you for your message! We will get back to you soon.';
+        document.getElementById('responseBanner').style.color = 'green';
+        console.log('Success:', data);
     })
     .catch((error) => {
-        // Handle error response
-        displayBanner('Failed to send message. Please try again.', 'error');
+        console.error('Error:', error);
+        document.getElementById('responseBanner').innerText = 'There was an error sending your message. Please try again later.';
+        document.getElementById('responseBanner').style.color = 'red';
     });
 });
-
-function displayBanner(message, type) {
-    const banner = document.getElementById('responseBanner');
-    banner.textContent = message;
-
-    if (type === 'success') {
-        banner.style.backgroundColor = '#d4edda'; // Light green
-        banner.style.color = '#155724'; // Dark green text
-    } else {
-        banner.style.backgroundColor = '#f8d7da'; // Light red
-        banner.style.color = '#721c24'; // Dark red text
-    }
-
-    banner.style.padding = '10px';
-    banner.style.borderRadius = '5px';
-}
