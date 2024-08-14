@@ -93,15 +93,21 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         body: JSON.stringify(data)
     })
     .then(response => response.json()) // Parse the JSON response
-    .then(data => {
+    .then(responseBody => {
+        // Log the full response for debugging
+        console.log('Full response:', responseBody);
+
+        // Parse the 'body' field if it's a string
+        const body = JSON.parse(responseBody.body);
+
         // Check if the status is success or failure
-        if (data.body.message && data.body.message === 'Data stored successfully and email sent') {
+        if (body.message && body.message === 'Data stored successfully and email sent') {
             document.getElementById('responseBanner').innerText = 'Thank you for your message! We will get back to you soon.';
             document.getElementById('responseBanner').style.color = 'green';
         } else {
-            throw new Error(data.body.message || 'An error occurred');
+            throw new Error(body.message || 'An error occurred');
         }
-        console.log('Success:', data);
+        console.log('Success:', body);
     })
     .catch((error) => {
         console.error('Error:', error);
