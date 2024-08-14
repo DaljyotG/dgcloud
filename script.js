@@ -92,22 +92,19 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         },
         body: JSON.stringify(data)
     })
-    .then(response => {
-        if (!response.ok) {
-            // If the response is not OK, throw an error
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); // Parse the JSON response
-    })
+    .then(response => response.json()) // Parse the JSON response
     .then(data => {
-        // Check if the message in the response indicates success
-        if (data.message === 'Data stored successfully and email sent') {
+        // Parse the body field of the response
+        const responseData = JSON.parse(data.body);
+
+        // Check if the status is success or failure
+        if (responseData.message && responseData.message === 'Data stored successfully and email sent') {
             document.getElementById('responseBanner').innerText = 'Thank you for your message! We will get back to you soon.';
             document.getElementById('responseBanner').style.color = 'green';
         } else {
-            throw new Error(data.message || 'An error occurred');
+            throw new Error(responseData.message || 'An error occurred');
         }
-        console.log('Success:', data);
+        console.log('Success:', responseData);
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -115,3 +112,4 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         document.getElementById('responseBanner').style.color = 'red';
     });
 });
+
