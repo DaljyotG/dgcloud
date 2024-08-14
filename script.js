@@ -97,8 +97,18 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         // Log the full response for debugging
         console.log('Full response:', responseBody);
 
-        // Parse the 'body' field if it's a string
-        const body = JSON.parse(responseBody.body);
+        // Check if the body field is already an object
+        let body;
+        try {
+            body = responseBody.body;
+            // If body is a string, parse it
+            if (typeof body === 'string') {
+                body = JSON.parse(body);
+            }
+        } catch (e) {
+            console.error('Error parsing body:', e);
+            throw new Error('Failed to parse response body');
+        }
 
         // Check if the status is success or failure
         if (body.message && body.message === 'Data stored successfully and email sent') {
