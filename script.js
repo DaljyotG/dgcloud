@@ -92,10 +92,16 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json()) // Parse the JSON response
+    .then(response => {
+        if (!response.ok) {
+            // If the response is not OK, throw an error
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the JSON response
+    })
     .then(data => {
-        // Check if the status is success or failure
-        if (data.message && data.message === 'Data stored successfully and email sent') {
+        // Check if the message in the response indicates success
+        if (data.message === 'Data stored successfully and email sent') {
             document.getElementById('responseBanner').innerText = 'Thank you for your message! We will get back to you soon.';
             document.getElementById('responseBanner').style.color = 'green';
         } else {
